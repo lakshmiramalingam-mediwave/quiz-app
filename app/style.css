@@ -15,7 +15,7 @@ h1 {
 .category-label {
   display: block;
   font-size: 18px;
-  color: #555;
+  color: light black;
   margin-bottom: 10px;
 }
 
@@ -23,10 +23,10 @@ select {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px;
   border-radius: 5px;
   background-color: #fff;
-  color: #333;
+  color: black ;
 }
 
 button {
