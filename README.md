@@ -1,3 +1,3 @@
-# quiz app
+# Quiz app
 
-# one script with 2 category
+# One script with 2 category
