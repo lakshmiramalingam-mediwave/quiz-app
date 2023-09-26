@@ -306,3 +306,6 @@ window.addEventListener("load", function () {
     document.getElementById("proceed").click();
   }
 });
+
+// selectElement.value = storedCategory;
+      // document.getElementById("proceed").click();

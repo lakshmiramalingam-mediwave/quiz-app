@@ -29,9 +29,9 @@ const state = {
       question: "Which state has the longest coastal line in India?",
       options: [
         { id: 10, text: "gujart", isCorrect: false },
-        { id: 11, text: "", isCorrect: false },
-        { id: 12, text: "", isCorrect: true },
-        { id: 13, text: " ", isCorrect: false },
+        { id: 11, text: "chennia", isCorrect: false },
+        { id: 12, text: "goa", isCorrect: true },
+        { id: 13, text: "pondicherry ", isCorrect: false },
       ],
       category: 2345,
     },
@@ -94,6 +94,7 @@ for (let sub of state.categories) {
   option.id = sub.id;
   option.value = sub.value;
   option.textContent = sub.name;
+  // option.innerHTML = sub.name;
 
   selectElement.appendChild(option);
 }
@@ -102,24 +103,23 @@ document.getElementById("proceed").addEventListener("click", function () {
   //procced data get
   selectedValue = selectElement.value;
   // container hide
-  proceedFunction(selectedValue);
-});
-function proceedFunction(selectedValue){
+  
   const categoryIndex = state.categories.findIndex((item) => {
     return item.value === selectedValue;
   });
   const getId = state.categories[categoryIndex].id;
+  proceedFunction(getId);
+});
+function proceedFunction(getId) {
+  
   console.log(getId);
   const container = document.querySelector(".container");
   container.style.display = "none";
   const quiz = document.querySelector("#quiz");
   quiz.style.display = "block";
   // calling loacl storage
-  setLocalStorageItem("selectedCategory", selectedValue);
+  setLocalStorageItem("selectedCategory", getId);
 
-
-
-  
   clearContent();
   appendToContent();
   appendToButton();
@@ -127,7 +127,7 @@ function proceedFunction(selectedValue){
 }
 function updateUiList(value) {
   const question = state.questions.filter((item) => {
-    return item.category === value;
+    return item.category ==value;
   });
   //  const getcategory=state.categories[categoryIndex].id;
 
@@ -167,7 +167,7 @@ function MakeQuestionList(mcq) {
     inputRadio.setAttribute("type", "radio");
     inputRadio.setAttribute("id", `${mcq["options"][i]["id"]}`);
     inputRadio.setAttribute("name", `answer-${mcq["id"]}`);
-    inputRadio.value = mcq.options[i].text;
+    inputRadio.value = mcq.options[i].id;
 
     label.appendChild(inputRadio);
     label.appendChild(document.createTextNode(mcq.options[i]["text"]));
@@ -193,7 +193,7 @@ function MakeQuestionList(mcq) {
     if (selected) {
       const userAnswer = selected.value;
       const answerIndex = mcq["options"].findIndex(
-        (item) => item.text === userAnswer
+        (item) => item.id == userAnswer
       );
       const correctIndex = mcq["options"].findIndex(
         (item) => item.isCorrect === true
@@ -258,7 +258,7 @@ function appendToButton() {
     const quiz = document.querySelector("#quiz");
     quiz.style.display = "none";
     container.style.display = "block";
-    // clear localstorage when back button is clicked 
+    // clear localstorage when back button is clicked
     localStorage.clear();
   });
 }
@@ -291,10 +291,8 @@ function getLocalStorageItem(key) {
 }
 // after refresh it will show same
 window.addEventListener("load", function () {
-    const storedCategory = getLocalStorageItem("selectedCategory");
-    if (storedCategory) {
-      // selectElement.value = storedCategory;
-      // document.getElementById("proceed").click();
-      proceedFunction(storedCategory)
-    }
-  });
+  const storedCategory = getLocalStorageItem("selectedCategory");
+  if (storedCategory) {
+    proceedFunction(storedCategory);
+  }
+});
