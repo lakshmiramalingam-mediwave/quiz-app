@@ -102,6 +102,9 @@ document.getElementById("proceed").addEventListener("click", function () {
   //procced data get
   selectedValue = selectElement.value;
   // container hide
+  proceedFunction(selectedValue);
+});
+function proceedFunction(selectedValue){
   const categoryIndex = state.categories.findIndex((item) => {
     return item.value === selectedValue;
   });
@@ -121,8 +124,7 @@ document.getElementById("proceed").addEventListener("click", function () {
   appendToContent();
   appendToButton();
   updateUiList(getId);
-});
-
+}
 function updateUiList(value) {
   const question = state.questions.filter((item) => {
     return item.category === value;
@@ -256,6 +258,8 @@ function appendToButton() {
     const quiz = document.querySelector("#quiz");
     quiz.style.display = "none";
     container.style.display = "block";
+    // clear localstorage when back button is clicked 
+    localStorage.clear();
   });
 }
 function appendToContent() {
@@ -289,7 +293,8 @@ function getLocalStorageItem(key) {
 window.addEventListener("load", function () {
     const storedCategory = getLocalStorageItem("selectedCategory");
     if (storedCategory) {
-      selectElement.value = storedCategory;
-      document.getElementById("proceed").click();
+      // selectElement.value = storedCategory;
+      // document.getElementById("proceed").click();
+      proceedFunction(storedCategory)
     }
   });
